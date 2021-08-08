@@ -15,36 +15,41 @@ const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
 };
-  const bodyContainer = document.queryCommandEnabled('body');
+  const bodyContainer = document.querySelector('body');
   const colorTheme = document.querySelector('.theme-switch__toggle');
-  const newTheme = localStorage.getItem('new-theme');
+  
 
-  // bodyContainer.classList.add(
-  //   localStorage.getItem("theme") ? localStorage.getItem("theme") : theme.LIGHT
-  // );
- 
-   if (newTheme === Theme.DARK) {
-    bodyContainer.classList.add(Theme.DARK);
-     colorTheme.checked = true;
-     localStorage.setItem('new-theme', bodyContainer.classList.value);
-  } else {
+  
+  colorTheme.addEventListener('change', toClickThemeDark);
+
+ function toClickThemeDark() {
+   const check = colorTheme.checked;
+   if (check) {    
+     bodyContainer.classList.add(Theme.DARK);
+     bodyContainer.classList.remove(Theme.LIGHT);
+     
+   } else {
     bodyContainer.classList.add(Theme.LIGHT);
-      localStorage.setItem('new-theme', bodyContainer.classList.value);
-   };
-   
-   colorTheme.addEventListener('click', bodyContainerChange);
-   
-   function bodyContainerChange(colorTheme) {
-    if (colorTheme.checked) {
-      toggleTheme(Theme.DARK, Theme.LIGHT);
-      localStorage.setItem('new-theme', bodyContainer.classList.value);
+    bodyContainer.classList.remove(Theme.DARK);
     
-    } else {
-      toggleTheme(Theme.LIGHT, Theme.DARK);
-      localStorage.setItem('new-theme', bodyContainer.classList.value);
-    }
-   };
+   }
+  };
 
-function toggleTheme(add, remove) {
-  bodyContainer.classList.replace(remove, add);
-}
+  colorTheme.addEventListener('change', localStorageInput);
+
+ 
+
+  function localStorageInput() {
+    const check = colorTheme.checked;
+    if(check) {
+      localStorage.setItem('theme', Theme.DARK);
+    } else {
+      localStorage.removeItem('theme');
+      localStorage.setItem('theme', Theme.LIGHT);
+    }
+  }
+  const toTheme = localStorage.getItem('theme');
+  if(toTheme === Theme.DARK) {
+    bodyContainer.classList.add(Theme.DARK);
+    bodyContainer.checked = true;
+  }
