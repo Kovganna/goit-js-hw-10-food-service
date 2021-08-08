@@ -46,5 +46,5 @@ const Theme = {
    };
 
 function toggleTheme(add, remove) {
-  bodyContainer.classList.replace(remove, add)
+  bodyContainer.classList.replace(remove, add);
 }
