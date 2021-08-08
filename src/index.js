@@ -9,21 +9,42 @@ function createCardMarcup(elements) {
 }
 createGallery.insertAdjacentHTML('beforeend', cardMarcup);
 
+// // изменение фона
 
-// import menuCardsTpl from "./templates/gallerygrid.hbs";
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
+  const bodyContainer = document.queryCommandEnabled('body');
+  const colorTheme = document.querySelector('.theme-switch__toggle');
+  const newTheme = localStorage.getItem('new-theme');
 
-// import items from './menu.json';
+  // bodyContainer.classList.add(
+  //   localStorage.getItem("theme") ? localStorage.getItem("theme") : theme.LIGHT
+  // );
+ 
+   if (newTheme === Theme.DARK) {
+    bodyContainer.classList.add(Theme.DARK);
+     colorTheme.checked = true;
+     localStorage.setItem('new-theme', bodyContainer.classList.value);
+  } else {
+    bodyContainer.classList.add(Theme.LIGHT);
+      localStorage.setItem('new-theme', bodyContainer.classList.value);
+   };
+   
+   colorTheme.addEventListener('click', bodyContainerChange);
+   
+   function bodyContainerChange(colorTheme) {
+    if (colorTheme.checked) {
+      toggleTheme(Theme.DARK, Theme.LIGHT);
+      localStorage.setItem('new-theme', bodyContainer.classList.value);
+    
+    } else {
+      toggleTheme(Theme.LIGHT, Theme.DARK);
+      localStorage.setItem('new-theme', bodyContainer.classList.value);
+    }
+   };
 
-
-// const menuContainer = document.querySelector('.js-menu');
-// const menuMarkup = createMenuCardsMarkup(items);
-
-
-
-// menuContainer.insertAdjacentHTML('beforeend', menuMarkup);
-
-
-
-// function createMenuCardsMarkup(items) {
-// return menuCardsTpl(items);
-// }
+function toggleTheme(add, remove) {
+  bodyContainer.classList.replace(remove, add)
+}
