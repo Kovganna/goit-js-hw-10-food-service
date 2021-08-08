@@ -17,9 +17,7 @@ const Theme = {
 };
   const bodyContainer = document.querySelector('body');
   const colorTheme = document.querySelector('.theme-switch__toggle');
-  
-
-  
+    
   colorTheme.addEventListener('change', toClickThemeDark);
 
  function toClickThemeDark() {
@@ -37,8 +35,6 @@ const Theme = {
 
   colorTheme.addEventListener('change', localStorageInput);
 
- 
-
   function localStorageInput() {
     const check = colorTheme.checked;
     if(check) {
@@ -49,7 +45,7 @@ const Theme = {
     }
   }
   const toTheme = localStorage.getItem('theme');
-  if(toTheme === Theme.DARK) {
+  if (toTheme === Theme.DARK) {
     bodyContainer.classList.add(Theme.DARK);
-    bodyContainer.checked = true;
-  }
+    colorTheme.checked = true;
+  } 
